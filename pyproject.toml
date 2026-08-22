@@ -9,6 +9,7 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.141.1",
+    "sqlmodel>=0.0.39",
 ]
 
 [project.scripts]
@@ -17,3 +18,6 @@ my-faztapi = "my_faztapi:main"
 [build-system]
 requires = ["uv_build>=0.12.5,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.fastapi]
+entrypoint = "my_faztapi.main:app"
