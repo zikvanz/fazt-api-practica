@@ -49,7 +49,7 @@ def get_users(q: str, page: int = 1):
 # Crea POST /login que reciba username y password, y devuelva 401 con detail="Credenciales inválidas" si no coinciden con valores fijos.
 
 
-class User(BaseModel):
+class LoginRequest(BaseModel):
     username: str
     password: str
 
@@ -58,7 +58,7 @@ db_users = [{"id": 1, "username": "jean", "password": "holi"}]
 
 
 @app.post("/login")
-def login(user: User):
+def login(user: LoginRequest):
     user_bd = next(
         (u for u in db_users if u["username"] == user.username),
         None,
