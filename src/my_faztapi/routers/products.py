@@ -4,6 +4,8 @@ from itertools import product
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 
+from my_faztapi.database import get_session
+
 router = APIRouter(prefix="/products", tags=["products"])
 
 
@@ -72,15 +74,9 @@ class ProductUpdate(SQLModel):
     price: float | None = None
 
 
-engine = create_engine("sqlite:///database.db")
-SQLModel.metadata.create_all(engine)
 
 app = FastAPI()
 
-
-def get_session():
-    with Session(engine) as session:
-        yield session
 
 
 @router.post("", response_model=Product)

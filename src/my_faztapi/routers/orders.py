@@ -21,13 +21,13 @@ def connect_db():
     return {"db": "conexion exitosa"}
 
 
-@router.get("/list1")
+@router.get("/list_orders_1")
 def get_users(pagination=Depends(pagination_params), connect_db=Depends(connect_db)):
     print(connect_db)
     return pagination
 
 
-@router.get("/list2")
+@router.get("/list_orders_2")
 def get_users(pagination=Depends(pagination_params)):
     return pagination
 
