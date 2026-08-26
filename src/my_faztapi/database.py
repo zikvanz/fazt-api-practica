@@ -10,4 +10,6 @@ def get_session():
 
 
 def create_db_and_tables():
+    import my_faztapi.models  # noqa: F401
+
     SQLModel.metadata.create_all(engine)

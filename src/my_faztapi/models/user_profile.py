@@ -1,7 +1,6 @@
 from typing import TYPE_CHECKING
 
 from sqlmodel import Field, Relationship, SQLModel
-from my_faztapi.models.user import User
 
 if TYPE_CHECKING:
     from my_faztapi.models.user import User

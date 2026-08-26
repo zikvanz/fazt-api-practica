@@ -1,6 +1,7 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
+
 from sqlmodel import Field, Relationship
-from my_faztapi.models.user_profile import UserProfile
+
 from my_faztapi.schemas.user import UserBase
 
 if TYPE_CHECKING:
@@ -11,6 +12,6 @@ if TYPE_CHECKING:
 class User(UserBase, table=True):
     id: int | None = Field(default=None, primary_key=True)
     orders: list["Order"] = Relationship(back_populates="user")
-    profile: "UserProfile" = Relationship(
+    profile: Optional["UserProfile"] = Relationship(
         back_populates="user", sa_relationship_kwargs={"uselist": False}
     )

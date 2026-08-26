@@ -1,10 +1,8 @@
-from email import message
-from itertools import product
-
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Depends, HTTPException
+from sqlmodel import Field, Session, SQLModel, select
 
 from my_faztapi.database import get_session
+from my_faztapi.models.product import Product
 
 router = APIRouter(prefix="/products", tags=["products"])
 
@@ -52,17 +50,9 @@ router = APIRouter(prefix="/products", tags=["products"])
 # Agrega PUT /products/{product_id} y DELETE /products/{product_id} siguiendo el mismo patrón.
 # Agrega un modelo User y una relación Order que pertenezca a un User (investiga Relationship de SQLModel).
 
-from fastapi import FastAPI, Depends, HTTPException
-from sqlmodel import SQLModel, Field, create_engine, Session, select
-
-
 class ProductBase(SQLModel):
     name: str
-    price: float
-
-
-class Product(ProductBase, table=True):
-    id: int | None = Field(default=None, primary_key=True)
+    price: float = Field(gt=0)
 
 
 class ProductCreate(ProductBase):
@@ -71,11 +61,7 @@ class ProductCreate(ProductBase):
 
 class ProductUpdate(SQLModel):
     name: str | None = None
-    price: float | None = None
-
-
-
-app = FastAPI()
+    price: float | None = Field(default=None, gt=0)
 
 
 
