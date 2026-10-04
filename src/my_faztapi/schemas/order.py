@@ -1,8 +1,8 @@
-from sqlmodel import SQLModel
+from sqlmodel import Field, SQLModel
 
 
 class OrderBase(SQLModel):
-    total: int
+    total: int = Field(gt=0)
 
 
 class OrderCreate(OrderBase):

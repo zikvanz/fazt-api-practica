@@ -1,18 +1,24 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from my_faztapi.database import create_db_and_tables
 from my_faztapi.routers import items, orders, products, users
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(items.router)
 app.include_router(products.router)
 app.include_router(users.router)
 app.include_router(orders.router)
-
-
-create_db_and_tables()
 
 
 # Crea GET / que devuelva {"message": "Bienvenido a mi API"}.
